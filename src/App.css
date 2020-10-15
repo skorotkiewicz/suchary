@@ -1,38 +1,215 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 5vh;
+
+  background-color: #d65a31;
+  padding: 8px 16px;
+  border-bottom: solid 1px #1d1d1d;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links > li {
+  margin-left: 15px;
+}
+
+nav > a,
+.nav-links > li > a {
+  color: #eee;
+  text-decoration: none;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
   flex-direction: column;
+}
+
+.content {
+  margin: 30px;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 12px;
+  color: #eee;
+  padding: 5px;
+  border-top: 1px solid #1d1d1d;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #09d3ac;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --- Multicolumn --- */
+.suchary {
+  display: block;
+  columns: 16rem;
+  gap: 1rem;
+}
+.suchar {
+  margin-bottom: 1rem;
+  break-inside: avoid;
+  display: inline-block;
+  position: relative;
+}
+
+.brand {
+  min-width: 70px;
+  font-weight: bold;
+}
+
+.brand::before {
+  content: "( ͡° ͜ʖ ͡°)";
+}
+.brand:hover::before {
+  content: "( ͡º ͜ʖ͡º)";
+}
+
+.bookmarkBtn:hover,
+.likeBtn:hover,
+.sucharLink:hover {
+  cursor: pointer;
+}
+
+.pageBtn {
+  margin: 20px;
+  padding: 5px;
+}
+
+.addBtn {
+  width: 100%;
+  padding: 10px;
+}
+
+.pagerBtn {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.loader,
+.paginator,
+.randBtn,
+.likeBtnContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.likeBox {
+  margin-top: 20px;
+  display: flex;
+}
+
+/* LIKEBTN */
+button {
+  color: #444444;
+  background: #f3f3f3;
+  border: 1px solid #dadada;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  outline: none;
+}
+button:disabled:not(.likeBtn),
+button[disabled]:not(.likeBtn) {
+  border: 1px solid #999999;
+  background-color: #a9a9a9;
+  color: #666666;
+}
+
+.likeBtn {
+  display: flex;
+  height: 30px;
+  font-size: 14px;
+}
+
+/* LIKEBTN */
+
+.authContent {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  border: 1px solid #1d1d1d;
+  padding: 10px;
+  background-color: #393e46;
+  color: #eee;
+}
+
+.auth {
+  margin: 50px;
+}
+
+hr {
+  border: 1px solid #4d535e;
+}
+
+.auth > form > input::-webkit-input-placeholder,
+.auth > form > input::placeholder {
+  color: #adadad;
+}
+.auth > form > input:-ms-input-placeholder {
+  color: #adadad;
+}
+
+.auth > form > input {
+  padding: 10px;
+  border: 1px solid #1d1d1d;
+  background-color: #4d535e;
+  color: #eee;
+  margin: 5px;
+  width: 180px;
+}
+
+.sucharInfo {
+  margin-bottom: 10px;
+  color: #eee;
+}
+.sucharInfo a {
+  color: #eee;
+}
+
+.sucharLink {
+  margin-left: 20px;
+  color: grey;
+  text-decoration: none;
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.bookmarkBtn {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.settingsBox {
+  border: 1px solid #393e46;
+
+  padding: 10px;
+  margin-top: 20px;
+  color: #ededed;
+}
+
+.suchar {
+  width: 100%;
+  padding: 10px;
+  white-space: pre-wrap;
+  border: 1px solid #1d1d1d;
+  background-color: #393e46;
+  color: #eee;
 }
