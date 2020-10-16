@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setIsLoading, setPage } from "./../_actions";
+import { setPage } from "./../_actions";
 
 const Navigator = () => {
   const auth = useSelector((state) => state.auth);
@@ -15,7 +15,6 @@ const Navigator = () => {
       <Link
         onClick={() => {
           dispatch(setPage(1));
-          dispatch(setIsLoading(true));
         }}
         data-tip="Jeszcze jeden suchar i będę <strong><em>najedzony!</em></strong>"
         data-html={true}
@@ -28,7 +27,6 @@ const Navigator = () => {
           <Link
             onClick={() => {
               dispatch(setPage(1));
-              dispatch(setIsLoading(true));
             }}
             to="/strona/1"
           >

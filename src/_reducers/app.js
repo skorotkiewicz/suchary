@@ -32,15 +32,6 @@ export const page = (state = 1, action) => {
   }
 };
 //
-export const isLoading = (state = true, action) => {
-  switch (action.type) {
-    case "setIsLoading":
-      return action.payload;
-    default:
-      return state;
-  }
-};
-//
 export const jokes = (
   state = { jokes: [], isLoading: false, error: null },
   action

@@ -26,12 +26,7 @@ export const setPage = (msg) => {
     payload: msg,
   };
 };
-export const setIsLoading = (msg) => {
-  return {
-    type: "setIsLoading",
-    payload: msg,
-  };
-};
+
 //
 export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
   if (x) return dispatch({ type: "UPDATE_JOKES_STATE", payload: x });
