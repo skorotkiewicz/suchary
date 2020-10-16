@@ -5,60 +5,45 @@ import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPage, setIsLoading } from "./../_actions";
+import { setPage, fetchJokes } from "./../_actions";
 
 const Index = () => {
-  const [jokes, setJokes] = useState([]);
-  const [prev, setPrev] = useState(true);
-  const [next, setNext] = useState(true);
   const [firstTime, setFirstTime] = useState(true);
   const { pageId } = useParams();
 
   const page = useSelector((state) => state.page);
-  const isLoading = useSelector((state) => state.isLoading);
+  const jokes = useSelector((state) => state.jokes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (firstTime) {
       if (pageId > 1) {
-        fetchJokes(pageId);
-        dispatch(setPage(page));
+        dispatch(fetchJokes(`page/${pageId}`));
+        dispatch(setPage(pageId));
         setFirstTime(false);
       } else {
-        fetchJokes(page);
+        dispatch(fetchJokes(`page/${page}`));
       }
     } else {
-      fetchJokes(page);
+      dispatch(fetchJokes(`page/${page}`));
     }
 
     window.history.replaceState(null, `Strona: ${page}`, `/strona/${page}`);
   }, [page]);
 
-  const fetchJokes = async (pg) => {
-    const data = await fetch(`https://pbsapi.now.sh/api/jokes/page/${pg}`);
-    const jokes = await data.json();
-
-    if (jokes) {
-      dispatch(setIsLoading(false));
-    }
-
-    setJokes(jokes.data.jokes);
-
-    setPrev(jokes.data.prevPage);
-    setNext(jokes.data.nextPage);
-  };
-
   const Suchary = () => {
     return (
       <>
         <div className="suchary">
-          {jokes.map((joke, key) => (
+          {jokes.jokes.map((joke, key) => (
             <Suchar
               joke={joke}
               id={key}
               key={key}
-              jokes={jokes}
-              setJokes={setJokes}
+              jokes={jokes.jokes}
+              setJokes={(x) => {
+                dispatch(fetchJokes(`page/${page}`, x));
+              }}
             />
           ))}
         </div>
@@ -67,11 +52,9 @@ const Index = () => {
           <button
             className="pageBtn"
             onClick={() => {
-              //setPage(prev);
-              dispatch(setPage(prev));
-              dispatch(setIsLoading(true));
+              dispatch(setPage(jokes.prev));
             }}
-            disabled={prev === null && true}
+            disabled={jokes.prev === null && true}
           >
             Poprzednia strona
           </button>
@@ -79,11 +62,9 @@ const Index = () => {
           <button
             className="pageBtn"
             onClick={() => {
-              //setPage(next);
-              dispatch(setPage(next));
-              dispatch(setIsLoading(true));
+              dispatch(setPage(jokes.next));
             }}
-            disabled={next === null && true}
+            disabled={jokes.next === null && true}
           >
             Następna strona
           </button>
@@ -94,7 +75,7 @@ const Index = () => {
 
   return (
     <>
-      {isLoading ? (
+      {jokes.isLoading ? (
         <div className="loader">
           <ReactLoading type={"bars"} color={"grey"} />
         </div>

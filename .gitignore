@@ -24,3 +24,4 @@ yarn-error.log*
 /src.bak
 /react-szuchary
 yarn.lock
+/src/pages/_bak

@@ -6,15 +6,17 @@ import * as serviceWorker from "./serviceWorker";
 
 import allReducer from "./_reducers";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 if (process.env.NODE_ENV === "development") {
   var store = createStore(
     allReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(applyMiddleware(thunk))
   );
 } else {
-  store = createStore(allReducer);
+  store = createStore(allReducer, applyMiddleware(thunk));
 }
 
 ReactDOM.render(
@@ -23,17 +25,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-//ReactDOM.render(<App />, document.getElementById("root"));
-
-/*
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-*/
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

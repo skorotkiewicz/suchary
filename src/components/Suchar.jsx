@@ -42,7 +42,7 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
   const actionSuchar = async (jid, action) => {
     if (action === "del") {
       if (window.confirm("Czy napewno usunąć tego suchara?")) {
-        const data = await fetch(`https://pbsapi.now.sh/api/joke/${jid}`, {
+        const data = await fetch(`https://pbsapi.now.sh/api/jokes/${jid}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

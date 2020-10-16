@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJokes } from "../_actions";
 
 const Random = () => {
-  const [jokes, setJokes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.jokes);
 
   useEffect(() => {
-    fetchJokes();
+    dispatch(fetchJokes("random"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const fetchJokes = async () => {
-    const data = await fetch("https://pbsapi.now.sh/api/jokes/random");
-
-    const jokes = await data.json();
-    setJokes(jokes.data.data);
-
-    if (jokes) {
-      setIsLoading(false);
-    }
-  };
 
   const RandBtn = () => {
     return (
@@ -27,8 +19,7 @@ const Random = () => {
         <button
           className="pagerBtn"
           onClick={() => {
-            fetchJokes();
-            setIsLoading(true);
+            dispatch(fetchJokes("random"));
           }}
         >
           Wylosuj ponownie
@@ -42,13 +33,15 @@ const Random = () => {
       <>
         <RandBtn />
         <div className="suchary">
-          {jokes.map((joke, key) => (
+          {state.jokes.map((joke, key) => (
             <Suchar
               joke={joke}
               id={key}
               key={key}
-              jokes={jokes}
-              setJokes={setJokes}
+              jokes={state.jokes}
+              setJokes={(x) => {
+                dispatch(fetchJokes("random", x));
+              }}
             />
           ))}
         </div>
@@ -59,7 +52,7 @@ const Random = () => {
 
   return (
     <>
-      {isLoading ? (
+      {state.isLoading ? (
         <div className="loader">
           <ReactLoading type={"bars"} color={"grey"} />
         </div>

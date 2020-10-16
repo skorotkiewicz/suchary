@@ -3,34 +3,32 @@ import { useParams, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJokes, fetchUser } from "./../_actions";
 
 const Profile = () => {
   let { login, pageId } = useParams();
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [isLoadingJokes, setIsLoadingJokes] = useState(true);
-
-  const [user, setUser] = useState([]);
-  const [jokes, setJokes] = useState([]);
   const [page, setPage] = useState(1);
-  const [prev, setPrev] = useState(true);
-  const [next, setNext] = useState(true);
   const [firstTime, setFirstTime] = useState(true);
 
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const jokes = useSelector((state) => state.jokes);
+  const user = useSelector((state) => state.user);
+
+  const fetchJokesUrl = `user/${login}/${page}`;
 
   useEffect(() => {
-    setIsLoadingJokes(true);
     if (firstTime) {
       if (pageId > 1) {
-        fetchJokes(pageId);
         setPage(pageId);
         setFirstTime(false);
+        dispatch(fetchJokes(`user/${login}/${pageId}`));
       } else {
-        fetchJokes(page);
+        dispatch(fetchJokes(fetchJokesUrl));
       }
     } else {
-      fetchJokes(page);
+      dispatch(fetchJokes(fetchJokesUrl));
     }
 
     window.history.replaceState(
@@ -42,52 +40,26 @@ const Profile = () => {
   }, [page]);
 
   useEffect(() => {
-    setIsLoadingUser(true);
     setPage(1);
-    fetchUser();
+    dispatch(fetchUser(login));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
 
-  const fetchUser = async () => {
-    const data = await fetch(`https://pbsapi.now.sh/api/users/${login}`);
-    const user = await data.json();
-    if (user) {
-      setIsLoadingUser(false);
-    }
-    setUser(user.data);
-  };
-
-  const fetchJokes = async (pg) => {
-    const data = await fetch(
-      `https://pbsapi.now.sh/api/jokes/user/${login}/${pg}`
-    );
-    const jokes = await data.json();
-
-    if (jokes) {
-      setIsLoadingJokes(false);
-    }
-    if (jokes.status === "success") {
-      setJokes(jokes.data.jokes);
-      setPrev(jokes.data.prevPage);
-      setNext(jokes.data.nextPage);
-    }
-  };
-
   const Profil = () => {
-    const joined = String(user.joined).replace(/T(.*)/g, "");
+    const joined = String(user.user.joined).replace(/T(.*)/g, "");
 
     return (
       <div style={{ color: "#adadad" }}>
-        <h1 style={{ color: "#eee" }}>{user.login}</h1>
+        <h1 style={{ color: "#eee" }}>{user.user.login}</h1>
         <h4>
-          Punkty: <em>{user.points}</em>
+          Punkty: <em>{user.user.points}</em>
         </h4>
         {/*<h4>{user.role}</h4>*/}
         <h4>
           Dołączył: <em>{joined}</em>
         </h4>
 
-        {auth.login === user.login && (
+        {auth.login === user.user.login && (
           <div className="settingsBox">
             ustawienia:{" "}
             <Link style={{ color: "#ededed" }} to="/ustawienia/zmianahasla">
@@ -108,14 +80,16 @@ const Profile = () => {
           Suchary dodane przez {login}
         </h3>
         <div className="suchary">
-          {jokes.map((joke, key) => (
+          {jokes.jokes.map((joke, key) => (
             <Suchar
               joke={joke}
               id={key}
               key={key}
               noLikes={false}
-              jokes={jokes}
-              setJokes={setJokes}
+              jokes={jokes.jokes}
+              setJokes={(x) => {
+                dispatch(fetchJokes(fetchJokesUrl, x));
+              }}
             />
           ))}
         </div>
@@ -129,10 +103,9 @@ const Profile = () => {
         <button
           className="pageBtn"
           onClick={() => {
-            setPage(prev);
-            setIsLoadingJokes(true);
+            setPage(jokes.prev);
           }}
-          disabled={prev === null && true}
+          disabled={jokes.prev === null && true}
         >
           Poprzednia strona
         </button>
@@ -140,10 +113,9 @@ const Profile = () => {
         <button
           className="pageBtn"
           onClick={() => {
-            setPage(next);
-            setIsLoadingJokes(true);
+            setPage(jokes.next);
           }}
-          disabled={next === null && true}
+          disabled={jokes.next === null && true}
         >
           Następna strona
         </button>
@@ -154,15 +126,15 @@ const Profile = () => {
   return (
     <div>
       <>
-        {isLoadingUser ? (
+        {user.isLoading ? (
           <div className="loader">
             <ReactLoading type={"bars"} color={"grey"} />
           </div>
-        ) : user ? (
+        ) : user.user ? (
           <>
             <Profil />
 
-            {isLoadingJokes ? (
+            {jokes.isLoading ? (
               <ReactLoading type={"cylon"} color={"grey"} />
             ) : (
               <>
