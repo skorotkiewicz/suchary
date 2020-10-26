@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Suchary-React-PBS/static/css/main.0fb5f891.chunk.css",
-    "main.js": "/Suchary-React-PBS/static/js/main.079bde16.chunk.js",
-    "main.js.map": "/Suchary-React-PBS/static/js/main.079bde16.chunk.js.map",
+    "main.js": "/Suchary-React-PBS/static/js/main.af601b54.chunk.js",
+    "main.js.map": "/Suchary-React-PBS/static/js/main.af601b54.chunk.js.map",
     "runtime-main.js": "/Suchary-React-PBS/static/js/runtime-main.67ab9d09.js",
     "runtime-main.js.map": "/Suchary-React-PBS/static/js/runtime-main.67ab9d09.js.map",
     "static/js/2.97696294.chunk.js": "/Suchary-React-PBS/static/js/2.97696294.chunk.js",
     "static/js/2.97696294.chunk.js.map": "/Suchary-React-PBS/static/js/2.97696294.chunk.js.map",
     "index.html": "/Suchary-React-PBS/index.html",
-    "precache-manifest.f03e927bc62490ff2bfad9b15f3fd636.js": "/Suchary-React-PBS/precache-manifest.f03e927bc62490ff2bfad9b15f3fd636.js",
+    "precache-manifest.4f2d8131572ec3b6ec664434c4db48b0.js": "/Suchary-React-PBS/precache-manifest.4f2d8131572ec3b6ec664434c4db48b0.js",
     "service-worker.js": "/Suchary-React-PBS/service-worker.js",
     "static/css/main.0fb5f891.chunk.css.map": "/Suchary-React-PBS/static/css/main.0fb5f891.chunk.css.map",
     "static/js/2.97696294.chunk.js.LICENSE.txt": "/Suchary-React-PBS/static/js/2.97696294.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.67ab9d09.js",
     "static/js/2.97696294.chunk.js",
     "static/css/main.0fb5f891.chunk.css",
-    "static/js/main.079bde16.chunk.js"
+    "static/js/main.af601b54.chunk.js"
   ]
 }

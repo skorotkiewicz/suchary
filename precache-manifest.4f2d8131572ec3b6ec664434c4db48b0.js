@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "53cbc3c40e34d3691e9d3dd897a02d15",
+    "revision": "8301ca2f7b35610fae76a9b75ec0acf6",
     "url": "/Suchary-React-PBS/index.html"
   },
   {
-    "revision": "480182754dd695b3a509",
+    "revision": "0bef052932f8fe7204b8",
     "url": "/Suchary-React-PBS/static/css/main.0fb5f891.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Suchary-React-PBS/static/js/2.97696294.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "480182754dd695b3a509",
-    "url": "/Suchary-React-PBS/static/js/main.079bde16.chunk.js"
+    "revision": "0bef052932f8fe7204b8",
+    "url": "/Suchary-React-PBS/static/js/main.af601b54.chunk.js"
   },
   {
     "revision": "d6d4ece299e6980f03a1",
