@@ -12,7 +12,7 @@ import ReactTooltip from "react-tooltip";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorites, setLikes } from "./../_actions";
-import { actions } from "../_reducers/app";
+// import { actions } from "../_reducers/app";
 
 const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
   const favorites = useSelector((state) => state.favorites);
