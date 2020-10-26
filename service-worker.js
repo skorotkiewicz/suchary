@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Suchary-React-PBS/precache-manifest.4f2d8131572ec3b6ec664434c4db48b0.js"
+  "/Suchary-React-PBS/precache-manifest.9b11ea5f27d7daf7c2c3aab04c15234f.js"
 );
 
 self.addEventListener('message', (event) => {
