@@ -18,13 +18,14 @@ const Auth = () => {
     if (type === "register") {
       setIsLoading1(true);
 
-      var url = "https://pbsapi.now.sh/api/users";
+      var url = "https://pbsapi.skorotkiewicz.vercel.app/api/users";
       if (e.target.password.value !== e.target.password2.value)
         return setInfo("Poadane hasła nie zgadzają się");
     } else {
       setIsLoading2(true);
 
-      url = "https://pbsapi.now.sh/api/session";
+      // url = "http://localhost:3001/api/session";
+      url = "https://pbsapi.skorotkiewicz.vercel.app/api/session";
     }
 
     const rbody = {
@@ -52,6 +53,7 @@ const Auth = () => {
       const authStorage = {
         auth: d.data["User-Token"],
         login: d.data["Login"],
+        role: d.data["Role"],
       };
       localStorage.setItem("auth", JSON.stringify(authStorage));
 

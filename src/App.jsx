@@ -57,6 +57,8 @@ function App() {
           <Switch>
             <Route path="/" exact component={Index} />
             <Route path="/strona/:pageId" exact component={Index} />
+            <Route path="/smietnik" exact component={Index} />
+            <Route path="/smietnik/strona/:pageId" exact component={Index} />
             <Route path="/losowe" exact component={Random} />
             <Route path="/mojeulubione" exact component={Favorites} />
             <Route path="/suchar/:id" exact component={SucharPage} />

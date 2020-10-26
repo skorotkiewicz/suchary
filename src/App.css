@@ -64,6 +64,15 @@ nav > a,
   position: relative;
 }
 
+.trash {
+  border: 2px solid #ff0000 !important;
+}
+.trashInfo {
+  margin: 5px;
+  text-align: center;
+  color: #ff5656;
+}
+
 .brand {
   min-width: 70px;
   font-weight: bold;

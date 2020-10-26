@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
 
@@ -10,25 +10,33 @@ import { setPage, fetchJokes } from "./../_actions";
 const Index = () => {
   const [firstTime, setFirstTime] = useState(true);
   const { pageId } = useParams();
+  const route = useRouteMatch();
 
   const page = useSelector((state) => state.page);
   const jokes = useSelector((state) => state.jokes);
   const dispatch = useDispatch();
 
+  const path = route.url === "/smietnik" ? "/cat/1" : "";
+  const path2 = route.url === "/smietnik" ? "/smietnik" : "";
+
   useEffect(() => {
     if (firstTime) {
       if (pageId > 1) {
-        dispatch(fetchJokes(`page/${pageId}`));
+        dispatch(fetchJokes(`page/${pageId}` + path));
         dispatch(setPage(pageId));
         setFirstTime(false);
       } else {
-        dispatch(fetchJokes(`page/${page}`));
+        dispatch(fetchJokes(`page/${page}` + path));
       }
     } else {
-      dispatch(fetchJokes(`page/${page}`));
+      dispatch(fetchJokes(`page/${page}` + path));
     }
 
-    window.history.replaceState(null, `Strona: ${page}`, `/strona/${page}`);
+    window.history.replaceState(
+      null,
+      `Strona: ${page}`,
+      `${path2}/strona/${page}`
+    );
   }, [page]);
 
   const Suchary = () => {
@@ -42,7 +50,7 @@ const Index = () => {
               key={key}
               jokes={jokes.jokes}
               setJokes={(x) => {
-                dispatch(fetchJokes(`page/${page}`, x));
+                dispatch(fetchJokes(`page/${page}` + path, x));
               }}
             />
           ))}

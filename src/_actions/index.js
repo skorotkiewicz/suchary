@@ -34,8 +34,10 @@ export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
   dispatch({ type: "FETCH_JOKES_REQUEST" });
 
   try {
-    //const data = await fetch(`http://localhost:3001/api/jokes/${url}`);
-    const data = await fetch(`https://pbsapi.now.sh/api/jokes/${url}`);
+    // const data = await fetch(`http://localhost:3001/api/jokes/${url}`);
+    const data = await fetch(
+      `https://pbsapi.skorotkiewicz.vercel.app/api/jokes/${url}`
+    );
     const jokes = await data.json();
 
     const getJokes = (await jokes.data.data) || (await jokes.data.jokes);
@@ -54,8 +56,10 @@ export const fetchUser = (login) => async (dispatch, getState) => {
   dispatch({ type: "FETCH_USER_REQUEST" });
 
   try {
-    //const data = await fetch(`http://localhost:3001/api/users/${login}`);
-    const data = await fetch(`https://pbsapi.now.sh/api/users/${login}`);
+    // const data = await fetch(`http://localhost:3001/api/users/${login}`);
+    const data = await fetch(
+      `https://pbsapi.skorotkiewicz.vercel.app/api/users/${login}`
+    );
     const user = await data.json();
 
     dispatch({ type: "FETCH_USER_SUCCESS", payload: user.data });
@@ -73,14 +77,17 @@ export const fetchActions = (
   dispatch({ type: "FETCH_ACTION_REQUEST" });
 
   try {
-    const data = await fetch(`https://pbsapi.now.sh/api/${url}`, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": auth.auth,
-      },
-      body: JSON.stringify(body),
-    });
+    const data = await fetch(
+      `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`,
+      {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": auth.auth,
+        },
+        body: JSON.stringify(body),
+      }
+    );
     const res = await data.json();
 
     dispatch({ type: "FETCH_ACTION_SUCCESS", payload: res });

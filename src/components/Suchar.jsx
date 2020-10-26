@@ -12,6 +12,7 @@ import ReactTooltip from "react-tooltip";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorites, setLikes } from "./../_actions";
+import { actions } from "../_reducers/app";
 
 const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
   const favorites = useSelector((state) => state.favorites);
@@ -41,20 +42,30 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
 
   const actionSuchar = async (jid, action) => {
     if (action === "del") {
-      if (window.confirm("Czy napewno usunąć tego suchara?")) {
-        const data = await fetch(`https://pbsapi.now.sh/api/jokes/${jid}`, {
-          method: "DELETE",
+      var url = `jokes/${jid}`;
+      var method = "DELETE";
+    }
+    if (action === "admin") {
+      url = `jokes/${jid}/category/1`;
+      method = "PATCH";
+    }
+    if (window.confirm("Czy napewno usunąć tego suchara?")) {
+      // const data = await fetch(`http://localhost:3001/api/${url}`, {
+      const data = await fetch(
+        `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`,
+        {
+          method: method,
           headers: {
             "Content-Type": "application/json",
             "x-access-token": auth.auth,
           },
-        });
-        const d = await data.json();
-
-        if (d.status === "success") {
-          const newList = jokes.filter((e) => e._id !== jid);
-          setJokes([...newList]);
         }
+      );
+      const d = await data.json();
+
+      if (d.status === "success") {
+        const newList = jokes.filter((e) => e._id !== jid);
+        setJokes([...newList]);
       }
     }
   };
@@ -66,7 +77,7 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
       localStorage.setItem("likes", JSON.stringify(likes));
 
       const data = await fetch(
-        `https://pbsapi.now.sh/api/joke/vote/like/${joke._id}`,
+        `https://pbsapi.skorotkiewicz.vercel.app/api/joke/vote/like/${joke._id}`,
         {
           method: "POST",
           headers: {
@@ -113,8 +124,11 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
 
   return (
     <div>
-      <div className="suchar">
-        <p>
+      <div className={joke.category === 1 ? "trash suchar" : "suchar"}>
+        <div>
+          <div className="trashInfo">
+            {joke.category === 1 && "Suchar znajduje się w śmietniku"}
+          </div>
           {joke && joke.joke === undefined
             ? joke[0].joke.replace(/&quot;/g, '"')
             : joke.joke.replace(/&quot;/g, '"')}
@@ -126,7 +140,7 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
           >
             <IoIosLink />
           </Link>
-        </p>
+        </div>
 
         <div className="likeBox">
           {!noLikes && <Likes />}
@@ -156,6 +170,19 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
                 />
               </>
             )}
+
+            {auth && auth.role === 3 && !rm && (
+              <>
+                <IoMdTrash
+                  onClick={() => {
+                    actionSuchar(joke._id, "admin");
+                  }}
+                  data-tip="Do śmietika"
+                  style={{ marginLeft: 20, fontSize: 16, color: "red" }}
+                />
+              </>
+            )}
+
             <ReactTooltip effect="solid" type="info" />
           </div>
         </div>
