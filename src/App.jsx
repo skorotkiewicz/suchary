@@ -49,37 +49,43 @@ function App() {
     return <h3 style={{ color: "#eee" }}>Nie znaleziono strony (╯︵╰,)</h3>;
   };
 
+  const url = "/Suchary-React-PBS/";
+
   return (
     <Router>
       <div className="App">
         <Navigator />
         <div className="content">
           <Switch>
-            <Route path="/" exact component={Index} />
-            <Route path="/strona/:pageId" exact component={Index} />
-            <Route path="/smietnik" exact component={Index} />
-            <Route path="/smietnik/strona/:pageId" exact component={Index} />
-            <Route path="/losowe" exact component={Random} />
-            <Route path="/mojeulubione" exact component={Favorites} />
-            <Route path="/suchar/:id" exact component={SucharPage} />
-            <Route path="/smieszek/:login" exact component={Profile} />
+            <Route path={`${url}/`} exact component={Index} />
+            <Route path={`${url}/strona/:pageId`} exact component={Index} />
+            <Route path={`${url}/smietnik`} exact component={Index} />
             <Route
-              path="/smieszek/:login/strona/:pageId"
+              path={`${url}/smietnik/strona/:pageId`}
+              exact
+              component={Index}
+            />
+            <Route path={`${url}/losowe`} exact component={Random} />
+            <Route path={`${url}/mojeulubione`} exact component={Favorites} />
+            <Route path={`${url}/suchar/:id`} exact component={SucharPage} />
+            <Route path={`${url}/smieszek/:login`} exact component={Profile} />
+            <Route
+              path={`${url}/smieszek/:login/strona/:pageId`}
               exact
               component={Profile}
             />
 
-            <Route path="/auth" exact>
+            <Route path={`${url}/auth`} exact>
               <Auth />
-              {auth && <Redirect to="/dodaj" />}
+              {auth && <Redirect to={`${url}/dodaj`} />}
             </Route>
-            <Route path="/wyloguj" exact>
+            <Route path={`${url}/wyloguj`} exact>
               {auth && <Logout />}
             </Route>
-            <Route path="/dodaj" exact>
+            <Route path={`${url}/dodaj`} exact>
               {auth && <AddSuchar auth={auth} />}
             </Route>
-            <Route path="/ustawienia/zmianahasla" exact>
+            <Route path={`${url}/ustawienia/zmianahasla`} exact>
               {auth && <Settings auth={auth} />}
             </Route>
 
