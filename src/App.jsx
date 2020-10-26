@@ -59,33 +59,29 @@ function App() {
           <Switch>
             <Route path={`${url}/`} exact component={Index} />
             <Route path={`${url}/strona/:pageId`} exact component={Index} />
-            <Route path={`${url}/smietnik`} exact component={Index} />
+            <Route path="/smietnik" exact component={Index} />
+            <Route path="/smietnik/strona/:pageId" exact component={Index} />
+            <Route path="/losowe" exact component={Random} />
+            <Route path="/mojeulubione" exact component={Favorites} />
+            <Route path="/suchar/:id" exact component={SucharPage} />
+            <Route path="/smieszek/:login" exact component={Profile} />
             <Route
-              path={`${url}/smietnik/strona/:pageId`}
-              exact
-              component={Index}
-            />
-            <Route path={`${url}/losowe`} exact component={Random} />
-            <Route path={`${url}/mojeulubione`} exact component={Favorites} />
-            <Route path={`${url}/suchar/:id`} exact component={SucharPage} />
-            <Route path={`${url}/smieszek/:login`} exact component={Profile} />
-            <Route
-              path={`${url}/smieszek/:login/strona/:pageId`}
+              path="/smieszek/:login/strona/:pageId"
               exact
               component={Profile}
             />
 
-            <Route path={`${url}/auth`} exact>
+            <Route path="/auth" exact>
               <Auth />
-              {auth && <Redirect to={`${url}/dodaj`} />}
+              {auth && <Redirect to="/dodaj" />}
             </Route>
-            <Route path={`${url}/wyloguj`} exact>
+            <Route path="/wyloguj" exact>
               {auth && <Logout />}
             </Route>
-            <Route path={`${url}/dodaj`} exact>
+            <Route path="/dodaj" exact>
               {auth && <AddSuchar auth={auth} />}
             </Route>
-            <Route path={`${url}/ustawienia/zmianahasla`} exact>
+            <Route path="/ustawienia/zmianahasla" exact>
               {auth && <Settings auth={auth} />}
             </Route>
 
