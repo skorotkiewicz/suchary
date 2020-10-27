@@ -49,16 +49,14 @@ function App() {
     return <h3 style={{ color: "#eee" }}>Nie znaleziono strony (╯︵╰,)</h3>;
   };
 
-  const url = "/Suchary-React-PBS/";
-
   return (
     <Router>
       <div className="App">
         <Navigator />
         <div className="content">
           <Switch>
-            <Route path={`${url}/`} exact component={Index} />
-            <Route path={`${url}/strona/:pageId`} exact component={Index} />
+            <Route path="/" exact component={Index} />
+            <Route path="/strona/:pageId" exact component={Index} />
             <Route path="/smietnik" exact component={Index} />
             <Route path="/smietnik/strona/:pageId" exact component={Index} />
             <Route path="/losowe" exact component={Random} />
