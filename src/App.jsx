@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   Redirect,
-  HashRouter,
 } from "react-router-dom";
 import { IoMdHeart } from "react-icons/io";
 import "./App.css";
@@ -51,60 +50,56 @@ function App() {
   };
 
   return (
-    <HashRouter basename="/">
-      <Router>
-        <div className="App">
-          <Navigator />
-          <div className="content">
-            <Switch>
-              <Route path="/" exact component={Index} />
-              <Route path="/strona/:pageId" exact component={Index} />
-              <Route path="/smietnik" exact component={Index} />
-              <Route path="/smietnik/strona/:pageId" exact component={Index} />
-              <Route path="/losowe" exact component={Random} />
-              <Route path="/mojeulubione" exact component={Favorites} />
-              <Route path="/suchar/:id" exact component={SucharPage} />
-              <Route path="/smieszek/:login" exact component={Profile} />
-              <Route
-                path="/smieszek/:login/strona/:pageId"
-                exact
-                component={Profile}
-              />
+    <Router basename="/">
+      <div className="App">
+        <Navigator />
+        <div className="content">
+          <Switch>
+            <Route path="/" exact component={Index} />
+            <Route path="/strona/:pageId" exact component={Index} />
+            <Route path="/smietnik" exact component={Index} />
+            <Route path="/smietnik/strona/:pageId" exact component={Index} />
+            <Route path="/losowe" exact component={Random} />
+            <Route path="/mojeulubione" exact component={Favorites} />
+            <Route path="/suchar/:id" exact component={SucharPage} />
+            <Route path="/smieszek/:login" exact component={Profile} />
+            <Route
+              path="/smieszek/:login/strona/:pageId"
+              exact
+              component={Profile}
+            />
 
-              <Route path="/auth" exact>
-                <Auth />
-                {auth && <Redirect to="/dodaj" />}
-              </Route>
-              <Route path="/wyloguj" exact>
-                {auth && <Logout />}
-              </Route>
-              <Route path="/dodaj" exact>
-                {auth && <AddSuchar auth={auth} />}
-              </Route>
-              <Route path="/ustawienia/zmianahasla" exact>
-                {auth && <Settings auth={auth} />}
-              </Route>
+            <Route path="/auth" exact>
+              <Auth />
+              {auth && <Redirect to="/dodaj" />}
+            </Route>
+            <Route path="/wyloguj" exact>
+              {auth && <Logout />}
+            </Route>
+            <Route path="/dodaj" exact>
+              {auth && <AddSuchar auth={auth} />}
+            </Route>
+            <Route path="/ustawienia/zmianahasla" exact>
+              {auth && <Settings auth={auth} />}
+            </Route>
 
-              <Route path="*" exact component={Error404} />
-            </Switch>
-          </div>
-          <div className="footer">
-            build with{" "}
-            <IoMdHeart
-              style={{ color: "red", marginLeft: 5, marginRight: 5 }}
-            />{" "}
-            by s.korotkiewicz (ta strona jest
-            <a
-              style={{ color: "#eee", marginLeft: 5 }}
-              href={`https://github.com/skorotkiewicz/Suchary-React-PBS`}
-            >
-              opensource!
-            </a>
-            )
-          </div>
+            <Route path="*" exact component={Error404} />
+          </Switch>
         </div>
-      </Router>
-    </HashRouter>
+        <div className="footer">
+          build with{" "}
+          <IoMdHeart style={{ color: "red", marginLeft: 5, marginRight: 5 }} />{" "}
+          by s.korotkiewicz (ta strona jest
+          <a
+            style={{ color: "#eee", marginLeft: 5 }}
+            href={`https://github.com/skorotkiewicz/Suchary-React-PBS`}
+          >
+            opensource!
+          </a>
+          )
+        </div>
+      </div>
+    </Router>
   );
 }
 
