@@ -5,7 +5,6 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { IoMdHeart } from "react-icons/io";
 import "./App.css";
 
 import Navigator from "./pages/Navigator.jsx";
@@ -87,16 +86,13 @@ function App() {
           </Switch>
         </div>
         <div className="footer">
-          build with{" "}
-          <IoMdHeart style={{ color: "red", marginLeft: 5, marginRight: 5 }} />{" "}
-          by s.korotkiewicz (ta strona jest
+          &copy; Suchary 2020 |{" "}
           <a
             style={{ color: "#eee", marginLeft: 5 }}
-            href={`https://github.com/skorotkiewicz/Suchary-React-PBS`}
+            href={`https://github.com/skorotkiewicz/suchary`}
           >
-            opensource!
+            opensource
           </a>
-          )
         </div>
       </div>
     </Router>
