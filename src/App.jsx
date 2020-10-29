@@ -9,16 +9,16 @@ import "./App.css";
 
 import Navigator from "./pages/Navigator.jsx";
 
-import Index from "./pages/IndexThunk";
+import Index from "./pages/Index";
 import Favorites from "./pages/Favorites";
-import Random from "./pages/RandomThunk";
-import SucharPage from "./pages/SucharPageThunk";
+import Random from "./pages/Random";
+import SucharPage from "./pages/SucharPage";
 
 import Auth from "./pages/Auth";
 import Logout from "./pages/Auth/Logout";
-import AddSuchar from "./pages/Auth/AddSucharThunk";
-import Settings from "./pages/Auth/SettingsThunk";
-import Profile from "./pages/ProfileThunk";
+import AddSuchar from "./pages/Auth/AddSuchar";
+import Settings from "./pages/Auth/Settings";
+import Profile from "./pages/Profile";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorites, setLikes, setAuth } from "./_actions";
