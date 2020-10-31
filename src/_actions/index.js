@@ -91,6 +91,7 @@ export const fetchActions = (
     const res = await data.json();
 
     dispatch({ type: "FETCH_ACTION_SUCCESS", payload: res });
+    dispatch({ type: "FETCH_ACTION_CLEAN" });
   } catch (error) {
     dispatch({ type: "FETCH_ACTION_FAILURE", error });
   }

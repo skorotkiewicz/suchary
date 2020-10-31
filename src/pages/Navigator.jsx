@@ -33,7 +33,6 @@ const Navigator = () => {
             najnowsze
           </Link>
         </li>
-        {/*<li><Link to="/popularne">popularne</Link></li>*/}
         <li>
           <Link to="/losowe">losowe</Link>
         </li>

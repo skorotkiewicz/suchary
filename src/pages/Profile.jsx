@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
-import Suchar from "./../components/Suchar";
+import Suchar from "../components/Suchar";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchJokes, fetchUser } from "./../_actions";
+import { fetchJokes, fetchUser } from "../_actions";
 
 const Profile = () => {
   let { login, pageId } = useParams();
@@ -50,13 +50,23 @@ const Profile = () => {
 
     return (
       <div style={{ color: "#adadad" }}>
-        <h1 style={{ color: "#eee" }}>{user.user.login}</h1>
+        <h1 style={{ color: "#eee" }}>
+          {user.user.login}{" "}
+          {user.user.role === 3 && (
+            <span style={{ color: "red", fontSize: 16 }}>Administrator</span>
+          )}
+          {user.user.role === 2 && (
+            <span style={{ color: "green", fontSize: 16 }}>Moderator</span>
+          )}
+        </h1>
         <h4>
           Punkty: <em>{user.user.points}</em>
         </h4>
-        {/*<h4>{user.role}</h4>*/}
         <h4>
           Dołączył: <em>{joined}</em>
+        </h4>
+        <h4>
+          <PointsBar points={user.user.points} />
         </h4>
 
         {auth.login === user.user.login && (
@@ -70,6 +80,78 @@ const Profile = () => {
 
         <hr style={{ marginTop: 20, marginBottom: 20 }} />
       </div>
+    );
+  };
+
+  const PointsBar = ({ points }) => {
+    let n = 0;
+    let p1 = 50;
+    let p2 = 100;
+
+    while (n < 10) {
+      n++;
+      p1 += 50;
+      p2 += 50;
+
+      if (points > p1 && points <= p2) {
+        var lvl = n;
+        var percent = ((points - 100) / (p2 - 100)) * 100;
+        break;
+      } else if (points > 550) {
+        lvl = 10;
+      } else {
+        lvl = 0;
+      }
+    }
+
+    return (
+      <>
+        Poziom: {lvl}
+        {percent <= 550 && drawPercentBar(300, percent)}
+      </>
+    );
+  };
+
+  const drawPercentBar = (width, percent) => {
+    var pixels = width * (percent / 100);
+
+    return (
+      <>
+        {" "}
+        - {percent}%
+        <div
+          style={{
+            position: "relative",
+            lineHeight: "1em",
+            width,
+            border: "1px solid #393e46",
+            marginTop: 10,
+          }}
+        >
+          <div
+            style={{
+              height: "1.5em",
+              width: pixels,
+              backgroundColor: "#393e46",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                textAlign: "center",
+                paddingTop: ".25em",
+                width,
+                top: 0,
+                left: 0,
+              }}
+            >
+              <small style={{ color: "white" }}>
+                {100 - percent}% do kolejnego poziomu!
+              </small>
+            </div>
+          </div>
+        </div>
+      </>
     );
   };
 

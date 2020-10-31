@@ -118,6 +118,11 @@ export const actions = (
         isLoading: false,
         error: action.error,
       };
+    case "FETCH_ACTION_CLEAN":
+      return {
+        ...state,
+        data: {},
+      };
 
     default:
       return state;

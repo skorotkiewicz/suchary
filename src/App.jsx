@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  Link,
 } from "react-router-dom";
 import "./App.css";
 
@@ -19,6 +20,7 @@ import Logout from "./pages/Auth/Logout";
 import AddSuchar from "./pages/Auth/AddSuchar";
 import Settings from "./pages/Auth/Settings";
 import Profile from "./pages/Profile";
+import Help from "./pages/Help";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorites, setLikes, setAuth } from "./_actions";
@@ -59,6 +61,7 @@ function App() {
             <Route path="/smietnik" exact component={Index} />
             <Route path="/smietnik/strona/:pageId" exact component={Index} />
             <Route path="/losowe" exact component={Random} />
+            <Route path="/pomoc" exact component={Help} />
             <Route path="/mojeulubione" exact component={Favorites} />
             <Route path="/suchar/:id" exact component={SucharPage} />
             <Route path="/smieszek/:login" exact component={Profile} />
@@ -87,6 +90,13 @@ function App() {
         </div>
         <div className="footer">
           &copy; Suchary 2020 |{" "}
+          <Link
+            style={{ color: "#eee", marginRight: 5, marginLeft: 5 }}
+            to="/pomoc"
+          >
+            pomoc
+          </Link>{" "}
+          |
           <a
             style={{ color: "#eee", marginLeft: 5 }}
             href={`https://github.com/skorotkiewicz/suchary`}
