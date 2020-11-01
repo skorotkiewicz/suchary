@@ -1,4 +1,5 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect, useCallback } from "react";
 import {
   IoIosHeart,
   IoIosHeartEmpty,
@@ -11,14 +12,57 @@ import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setFavorites, setLikes } from "./../_actions";
+import { setFavorites, setLikes, fetchActions } from "./../_actions";
 
 const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
   const favorites = useSelector((state) => state.favorites);
   const likes = useSelector((state) => state.likes);
   const auth = useSelector((state) => state.auth);
+  const actions = useSelector((state) => state.actions);
+  const [aInfo, setAInfo] = useState({});
 
   const dispatch = useDispatch();
+
+  // const actionSuchar = useCallback(
+  //   (x, action) => {
+  //     if (action === "del") {
+  //       var url = `jokes/${joke._id}`;
+  //       var method = "DELETE";
+  //     }
+  //     if (action === "admin") {
+  //       url = `jokes/${joke._id}/category/1`;
+  //       method = "PATCH";
+  //     }
+  //     if (window.confirm("Czy napewno usunąć tego suchara?")) {
+  //       dispatch(fetchActions(auth, url, {}, method)); // API Request
+  //       const newList = jokes.filter((e) => e._id !== joke._id);
+  //       setJokes([...newList]);
+  //     }
+  //   },
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   [joke._id]
+  // );
+
+  useEffect(() => {
+    if (actions.data.status === "success") {
+      if (aInfo.a === "del") {
+        const newList = jokes.filter((e) => e._id !== aInfo.id);
+        setJokes([...newList]);
+      }
+
+      if (aInfo.a === "like") {
+        const newList = jokes.map((item) => {
+          if (item._id === aInfo.id) {
+            return { ...item, likes: actions.data.data.likes };
+          }
+          return item;
+        });
+        setJokes(newList);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actions]);
 
   const addFav = (joke) => {
     if (favorites.includes(joke._id)) {
@@ -49,23 +93,8 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
       method = "PATCH";
     }
     if (window.confirm("Czy napewno usunąć tego suchara?")) {
-      // const data = await fetch(`http://localhost:3001/api/${url}`, {
-      const data = await fetch(
-        `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`,
-        {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": auth.auth,
-          },
-        }
-      );
-      const d = await data.json();
-
-      if (d.status === "success") {
-        const newList = jokes.filter((e) => e._id !== jid);
-        setJokes([...newList]);
-      }
+      setAInfo({ id: jid, a: "del" });
+      dispatch(fetchActions(auth, url, {}, method)); // API Request
     }
   };
 
@@ -75,25 +104,8 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
       dispatch(setLikes([...likes]));
       localStorage.setItem("likes", JSON.stringify(likes));
 
-      const data = await fetch(
-        `https://pbsapi.skorotkiewicz.vercel.app/api/joke/vote/like/${joke._id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const votes = await data.json();
-
-      const newList = jokes.map((item) => {
-        if (item._id === joke._id) {
-          return { ...item, likes: votes.data.likes };
-        }
-        return item;
-      });
-
-      setJokes(newList);
+      setAInfo({ id: joke._id, a: "like" });
+      dispatch(fetchActions({}, `joke/vote/like/${joke._id}`, {}, "POST")); // API Request
     }
   };
 

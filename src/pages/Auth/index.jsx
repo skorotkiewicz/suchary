@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
-import { useDispatch } from "react-redux";
-import { setAuth } from "./../../_actions";
+import { useSelector, useDispatch } from "react-redux";
+import { setAuth, fetchActions } from "./../../_actions";
 import Seo from "../../components/Seo";
 
 const Auth = () => {
@@ -10,22 +10,44 @@ const Auth = () => {
   const [info, setInfo] = useState("");
   const [isLoading1, setIsLoading1] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const actions = useSelector((state) => state.actions);
+
+  useEffect(() => {
+    if (actions.data.status) {
+      setIsLoading1(false);
+      setIsLoading2(false);
+    }
+
+    if (actions.data.status === "success") {
+      const a = actions.data;
+      const authStorage = {
+        auth: a.data["User-Token"],
+        login: a.data["Login"],
+        role: a.data["Role"],
+      };
+      localStorage.setItem("auth", JSON.stringify(authStorage));
+
+      dispatch(setAuth(authStorage));
+    }
+
+    if (actions.data.status === "error") {
+      setInfo(actions.data.message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actions]);
 
   const auther = async (e, type) => {
     e.preventDefault();
-    //setInfo("");
 
     if (type === "register") {
       setIsLoading1(true);
-
-      var url = "https://pbsapi.skorotkiewicz.vercel.app/api/users";
-      if (e.target.password.value !== e.target.password2.value)
+      var url = "users";
+      if (e.target.password.value !== e.target.password2.value) {
         return setInfo("Poadane hasła nie zgadzają się");
+      }
     } else {
       setIsLoading2(true);
-
-      // url = "http://localhost:3001/api/session";
-      url = "https://pbsapi.skorotkiewicz.vercel.app/api/session";
+      url = "session";
     }
 
     const rbody = {
@@ -35,32 +57,7 @@ const Auth = () => {
       },
     };
 
-    const data = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(rbody),
-    });
-    const d = await data.json();
-
-    if (d.status) {
-      setIsLoading1(false);
-      setIsLoading2(false);
-    }
-
-    if (d.status === "success") {
-      const authStorage = {
-        auth: d.data["User-Token"],
-        login: d.data["Login"],
-        role: d.data["Role"],
-      };
-      localStorage.setItem("auth", JSON.stringify(authStorage));
-
-      dispatch(setAuth(authStorage));
-    } else {
-      setInfo(d.message);
-    }
+    dispatch(fetchActions({}, url, rbody, "POST"));
   };
 
   const RegisterForm = () => {
@@ -123,7 +120,7 @@ const Auth = () => {
       <div className="authContent">
         {info ? (
           <>
-            <h4 style={{ color: "#fff" }}>{info}</h4>
+            <h4 style={{ color: "#b35d5d" }}>{info}</h4>
           </>
         ) : (
           <>
