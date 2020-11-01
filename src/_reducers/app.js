@@ -68,7 +68,7 @@ export const jokes = (
   }
 };
 export const user = (
-  state = { user: [], isLoading: false, error: null },
+  state = { user: [], users: [], isLoading: false, error: null },
   action
 ) => {
   switch (action.type) {
@@ -83,6 +83,12 @@ export const user = (
         ...state,
         isLoading: false,
         user: action.payload,
+      };
+    case "FETCH_USERS_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        users: action.payload,
       };
     case "FETCH_USER_FAILURE":
       return {

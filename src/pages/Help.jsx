@@ -1,5 +1,6 @@
 import React from "react";
 import Seo from "../components/Seo";
+import { Link } from "react-router-dom";
 
 const Help = () => {
   return (
@@ -20,10 +21,13 @@ const Help = () => {
           zostanie on przeniesiony do śmietnika, co sprawi, że z twojego konta
           znikną -10 punktów...
         </li>
-        {/* <li>
-            Osoby którzy mają wysoką ilość punktów są w gronie "Top 15"
-            najlepszych pisarzy sucharów!
-          </li> */}
+        <li>
+          Osoby którzy mają wysoką ilość punktów są w gronie "
+          <Link style={{ color: "#eee" }} to="/top15">
+            Top 15
+          </Link>
+          " najlepszych pisarzy sucharów!
+        </li>
       </ol>
 
       <h1 style={{ marginTop: 30 }}>Suchary</h1>

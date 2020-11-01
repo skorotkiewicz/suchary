@@ -222,3 +222,36 @@ hr {
   background-color: #393e46;
   color: #eee;
 }
+
+/* Top 15 */
+
+.top15 > h2 {
+  text-align: center;
+}
+.topUserA {
+  color: #eee;
+  text-decoration: none;
+}
+.top15 {
+  margin: 0 auto;
+  flex: 1;
+  color: #eee;
+  max-width: 400px;
+}
+.topUser {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #1d1d1d;
+  background-color: #393e46;
+
+  position: relative;
+}
+.userPoints {
+  position: absolute;
+  right: 10px;
+}
+.footerLink {
+  color: #eee;
+  margin-right: 5px;
+  margin-left: 5px;
+}

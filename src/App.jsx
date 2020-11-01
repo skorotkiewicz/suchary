@@ -21,6 +21,7 @@ import AddSuchar from "./pages/Auth/AddSuchar";
 import Settings from "./pages/Auth/Settings";
 import Profile from "./pages/Profile";
 import Help from "./pages/Help";
+import Top15 from "./pages/Top15";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setFavorites, setLikes, setAuth } from "./_actions";
@@ -65,6 +66,7 @@ function App() {
             <Route path="/mojeulubione" exact component={Favorites} />
             <Route path="/suchar/:id" exact component={SucharPage} />
             <Route path="/smieszek/:login" exact component={Profile} />
+            <Route path="/top15" exact component={Top15} />
             <Route
               path="/smieszek/:login/strona/:pageId"
               exact
@@ -90,15 +92,16 @@ function App() {
         </div>
         <div className="footer">
           &copy; Suchary 2020 |{" "}
-          <Link
-            style={{ color: "#eee", marginRight: 5, marginLeft: 5 }}
-            to="/pomoc"
-          >
+          <Link className="footerLink" to="/pomoc">
             pomoc
           </Link>{" "}
           |
+          <Link className="footerLink" to="/top15">
+            top15
+          </Link>{" "}
+          |
           <a
-            style={{ color: "#eee", marginLeft: 5 }}
+            className="footerLink"
             href={`https://github.com/skorotkiewicz/suchary`}
           >
             opensource
