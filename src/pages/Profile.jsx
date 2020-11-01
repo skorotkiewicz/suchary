@@ -94,7 +94,7 @@ const Profile = () => {
       p1 += 50;
       p2 += 50;
 
-      if (points > p1 && points <= p2) {
+      if (points >= p1 && points <= p2) {
         var lvl = n;
         var percent = ((points - 100) / (p2 - 100)) * 100;
         break;
