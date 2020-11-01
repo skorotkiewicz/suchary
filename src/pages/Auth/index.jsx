@@ -40,11 +40,11 @@ const Auth = () => {
     e.preventDefault();
 
     if (type === "register") {
-      setIsLoading1(true);
-      var url = "users";
       if (e.target.password.value !== e.target.password2.value) {
         return setInfo("Poadane hasła nie zgadzają się");
       }
+      var url = "users";
+      setIsLoading1(true);
     } else {
       setIsLoading2(true);
       url = "session";
@@ -117,10 +117,10 @@ const Auth = () => {
         <hr style={{ marginTop: 20, marginBottom: 20 }} />
         <LoginForm />
       </div>
-      <div className="authContent">
+      <div className={!info ? `authContent` : `authContent2`}>
         {info ? (
           <>
-            <h4 style={{ color: "#b35d5d" }}>{info}</h4>
+            <h4>{info}</h4>
           </>
         ) : (
           <>

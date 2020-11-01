@@ -119,6 +119,8 @@ nav > a,
 .likeBox {
   margin-top: 20px;
   display: flex;
+  padding-top: 10px;
+  border-top: 1px dotted #707070;
 }
 
 /* LIKEBTN */
@@ -154,6 +156,16 @@ button[disabled]:not(.likeBtn) {
   border: 1px solid #1d1d1d;
   padding: 10px;
   background-color: #393e46;
+  color: #eee;
+}
+.authContent2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  border: 1px solid #1d1d1d;
+  padding: 10px;
+  background-color: #d65a3149;
   color: #eee;
 }
 
