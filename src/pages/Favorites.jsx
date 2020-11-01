@@ -1,6 +1,6 @@
 import React from "react";
 import Suchar from "./../components/Suchar";
-
+import Seo from "./../components/Seo";
 import { useSelector } from "react-redux";
 
 const Favorites = () => {
@@ -17,6 +17,7 @@ const Favorites = () => {
 
   return (
     <div className="suchary">
+      <Seo title="Moje ulubione Suchary <3" />
       {favSuchars.map((joke, key) =>
         getFav.length >= 1 ? (
           <Suchar joke={joke} id={key} key={key} noLikes={true} />

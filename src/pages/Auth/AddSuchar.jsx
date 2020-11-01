@@ -3,6 +3,7 @@ import ReactLoading from "react-loading";
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchActions } from "./../../_actions";
+import Seo from "../../components/Seo";
 
 const AddSuchar = ({ auth }) => {
   const [suchar, setSuchar] = useState("");
@@ -26,6 +27,7 @@ const AddSuchar = ({ auth }) => {
 
   return (
     <div>
+      <Seo title="Dodaj nowy Suchar" />
       <form onSubmit={add}>
         <textarea
           className="suchar"

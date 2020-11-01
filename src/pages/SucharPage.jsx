@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
-import Suchar from "./../components/Suchar";
+import Suchar from "../components/Suchar";
+import Seo from "../components/Seo";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchJokes } from "./../_actions";
+import { fetchJokes } from "../_actions";
 
 const SucharPage = () => {
   let { id } = useParams();
@@ -32,7 +33,7 @@ const SucharPage = () => {
       <>
         {jokes.jokes.map((joke, key) => (
           <>
-            <SucharInfo key={1} joke={joke} />
+            <SucharInfo key={10} joke={joke} />
             <Suchar
               joke={joke}
               id={key}
@@ -54,8 +55,11 @@ const SucharPage = () => {
         <div className="loader">
           <ReactLoading type={"bars"} color={"grey"} />
         </div>
-      ) : jokes ? (
-        <SucharBox />
+      ) : jokes.jokes[0] ? (
+        <>
+          <Seo title={jokes.jokes[0].joke} desc={jokes.jokes[0].joke} />
+          <SucharBox />
+        </>
       ) : (
         <h4 style={{ color: "#eee" }}>Brak podanego suchara</h4>
       )}

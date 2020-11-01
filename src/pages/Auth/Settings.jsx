@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactLoading from "react-loading";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchActions } from "./../../_actions";
+import Seo from "../../components/Seo";
 
 const Settings = ({ auth }) => {
   const [info, setInfo] = useState("");
@@ -25,6 +26,7 @@ const Settings = ({ auth }) => {
 
   return (
     <>
+      <Seo title="Ustawienia" />
       <div className="authContent">
         <div className="auth">
           <h1 style={{ color: "#fff", marginBottom: 20 }}>Zmień hasło</h1>

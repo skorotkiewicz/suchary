@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useRouteMatch } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
+import Seo from "./../components/Seo";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setPage, fetchJokes } from "./../_actions";
@@ -88,7 +89,10 @@ const Index = () => {
           <ReactLoading type={"bars"} color={"grey"} />
         </div>
       ) : (
-        <Suchary />
+        <>
+          <Seo title={`Najnowsze suchary - Strona ${page}`} />
+          <Suchary />
+        </>
       )}
     </>
   );

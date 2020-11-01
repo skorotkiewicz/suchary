@@ -1,8 +1,10 @@
 import React from "react";
+import Seo from "../components/Seo";
 
 const Help = () => {
   return (
     <div className="suchar" style={{ padding: 30 }}>
+      <Seo title="Pomoc" />
       <h1>Punkty</h1>
       <p>Punkty zdobywa się przez aktywność na portalu.</p>
       <ol>

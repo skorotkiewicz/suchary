@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Suchar from "../components/Suchar";
+import Seo from "../components/Seo";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJokes, fetchUser } from "../_actions";
@@ -214,6 +215,7 @@ const Profile = () => {
           </div>
         ) : user.user ? (
           <>
+            <Seo title={`Profil ${user.user.login}`} />
             <Profil />
 
             {jokes.isLoading ? (

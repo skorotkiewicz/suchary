@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ReactLoading from "react-loading";
 import Suchar from "./../components/Suchar";
+import Seo from "./../components/Seo";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJokes } from "../_actions";
 
@@ -57,7 +58,10 @@ const Random = () => {
           <ReactLoading type={"bars"} color={"grey"} />
         </div>
       ) : (
-        <Suchary />
+        <>
+          <Seo title="Losowe suchary" />
+          <Suchary />
+        </>
       )}
     </>
   );

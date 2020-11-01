@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ReactLoading from "react-loading";
-
 import { useDispatch } from "react-redux";
 import { setAuth } from "./../../_actions";
+import Seo from "../../components/Seo";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -114,6 +114,7 @@ const Auth = () => {
 
   return (
     <>
+      <Seo title="Załóż konto lub zaloguj się" />
       <div className="authContent">
         <RegisterForm />
         <hr style={{ marginTop: 20, marginBottom: 20 }} />
