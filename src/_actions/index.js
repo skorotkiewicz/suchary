@@ -52,17 +52,26 @@ export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
   //const jokes = getState();
 };
 
-export const fetchUser = (login) => async (dispatch, getState) => {
+export const fetchUser = (login, top15 = false) => async (
+  dispatch,
+  getState
+) => {
   dispatch({ type: "FETCH_USER_REQUEST" });
 
   try {
-    // const data = await fetch(`http://localhost:3001/api/users/${login}`);
+    if (top15) {
+      var url = "the/users/top15";
+      var type = "USERS";
+    } else {
+      type = "USER";
+      url = `users/${login}`;
+    }
     const data = await fetch(
-      `https://pbsapi.skorotkiewicz.vercel.app/api/users/${login}`
+      `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`
     );
     const user = await data.json();
 
-    dispatch({ type: "FETCH_USER_SUCCESS", payload: user.data });
+    dispatch({ type: `FETCH_${type}_SUCCESS`, payload: user.data });
   } catch (error) {
     dispatch({ type: "FETCH_USER_FAILURE", error });
   }
