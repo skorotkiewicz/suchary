@@ -21,31 +21,37 @@ const Profile = () => {
   const fetchJokesUrl = `user/${login}/${page}`;
 
   useEffect(() => {
+    dispatch(setPage(1));
+    dispatch(fetchUser(login));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [login]);
+
+  useEffect(() => {
     if (firstTime) {
       if (pageId > 1) {
+        dispatch(fetchJokes(`user/${login}/${pageId}`));
         dispatch(setPage(pageId));
         setFirstTime(false);
-        dispatch(fetchJokes(`user/${login}/${pageId}`));
+        windowUrl(pageId);
       } else {
         dispatch(fetchJokes(fetchJokesUrl));
+        windowUrl(page);
       }
     } else {
       dispatch(fetchJokes(fetchJokesUrl));
+      windowUrl(page);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  const windowUrl = (page) => {
     window.history.replaceState(
       null,
       `Śmieszek: ${login} - Strona: ${page}`,
       `/smieszek/${login}/strona/${page}`
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-  useEffect(() => {
-    dispatch(setPage(1));
-    dispatch(fetchUser(login));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login]);
+  };
 
   const Profil = () => {
     const joined = String(user.user.joined).replace(/T(.*)/g, "");
