@@ -7,7 +7,7 @@ import Seo from "./../components/Seo";
 import Paginator from "./../components/Paginator";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPage, fetchJokes } from "./../_actions";
+import { setPage, fetchJokes, setQuery } from "./../_actions";
 
 const Index = () => {
   const [firstTime, setFirstTime] = useState(true);
@@ -22,6 +22,8 @@ const Index = () => {
   const path = route.url === "/smietnik" ? "/cat/1" : "";
   const path2 = route.url === "/smietnik" ? "/smietnik" : "";
 
+  // page/:page/cat/:category
+
   useEffect(() => {
     if (!jokes.isLoading && !uquery) {
       if (firstTime) {
@@ -29,19 +31,20 @@ const Index = () => {
           dispatch(fetchJokes(`page/${pageId}` + path));
           dispatch(setPage(pageId));
           setFirstTime(false);
-          windowUrl(pageId);
+          windowUrl(pageId, path2);
         } else {
           dispatch(fetchJokes(`page/${page}` + path));
-          windowUrl(page);
+          windowUrl(page, path2);
         }
       } else {
         dispatch(fetchJokes(`page/${page}` + path));
-        windowUrl(page);
+        windowUrl(page, path2);
       }
+      dispatch(setQuery(false));
     }
-  }, [page, route]);
+  }, [page, route.url]);
 
-  const windowUrl = (page) => {
+  const windowUrl = (page, path2) => {
     window.history.replaceState(
       null,
       `Strona: ${page}`,

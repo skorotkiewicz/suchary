@@ -25,7 +25,14 @@ import Top15 from "./pages/Top15";
 import Search from "./pages/Search";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setFavorites, setLikes, setAuth, setPage, setQuery } from "./_actions";
+import {
+  setFavorites,
+  setLikes,
+  setAuth,
+  setPage,
+  setQuery,
+  fetchJokes,
+} from "./_actions";
 
 function App() {
   const getFav = JSON.parse(localStorage.getItem("favorites") || 0);
@@ -108,7 +115,14 @@ function App() {
                 top15
               </Link>{" "}
               |
-              <Link className="footerLink" to="/smietnik">
+              <Link
+                className="footerLink"
+                to="/smietnik"
+                onClick={() => {
+                  dispatch(setPage(1));
+                  dispatch(fetchJokes(`page/1/cat/1`));
+                }}
+              >
                 śmietnik
               </Link>{" "}
               |
