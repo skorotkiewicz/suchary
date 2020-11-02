@@ -6,7 +6,7 @@ import Seo from "../components/Seo";
 import Paginator from "../components/Paginator";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchJokes, setPage } from "../_actions";
+import { fetchJokes, setPage, setQuery } from "../_actions";
 
 const Search = () => {
   const [firstTime, setFirstTime] = useState(true);
@@ -33,6 +33,7 @@ const Search = () => {
         dispatch(fetchJokes(`${url}${page}`));
         windowUrl(page, query);
       }
+      dispatch(setQuery(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query]);

@@ -7,7 +7,7 @@ import Seo from "./../components/Seo";
 import Paginator from "./../components/Paginator";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPage, fetchJokes, setQuery } from "./../_actions";
+import { setPage, fetchJokes } from "./../_actions";
 
 const Index = () => {
   const [firstTime, setFirstTime] = useState(true);
@@ -40,7 +40,6 @@ const Index = () => {
         dispatch(fetchJokes(`page/${page}` + path));
         windowUrl(page, path2);
       }
-      dispatch(setQuery(false));
     }
   }, [page, route.url]);
 

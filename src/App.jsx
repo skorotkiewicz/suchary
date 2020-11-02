@@ -23,6 +23,7 @@ import Profile from "./pages/Profile";
 import Help from "./pages/Help";
 import Top15 from "./pages/Top15";
 import Search from "./pages/Search";
+import SearchForm from "./components/SearchForm";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -30,7 +31,6 @@ import {
   setLikes,
   setAuth,
   setPage,
-  setQuery,
   fetchJokes,
 } from "./_actions";
 
@@ -40,7 +40,6 @@ function App() {
   const getAuth = JSON.parse(localStorage.getItem("auth") || 0);
 
   const auth = useSelector((state) => state.auth);
-  const query = useSelector((state) => state.query);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -134,25 +133,7 @@ function App() {
               </a>
             </div>
             <div className="b ctr">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  dispatch(setPage(1));
-                  dispatch(setQuery(e.target.search.value));
-                }}
-              >
-                <input
-                  // onChange={(e) => setQuery(e.target.value)}
-                  type="text"
-                  placeholder="Wyszukaj suchara..."
-                  name="search"
-                />
-              </form>
-              {query && (
-                <>
-                  <Redirect to={`/szukaj/${query}/strona/1`} />
-                </>
-              )}
+              <SearchForm />
             </div>
             <div className="c ctr">&copy; Suchary 2020</div>
           </div>
