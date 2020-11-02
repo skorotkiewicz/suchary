@@ -53,6 +53,12 @@ const Search = () => {
               }}
             />
           ))}
+
+          {jokes.jokes.length < 1 && (
+            <div style={{ color: "#eee" }}>
+              Nie znaleziona suchara o szukanej frazie
+            </div>
+          )}
         </div>
 
         <Paginator page={page} next={jokes.next} prev={jokes.prev} />
@@ -69,11 +75,12 @@ const Search = () => {
       ) : (
         <>
           <Seo title={`Wyszukiwanie suchara - fraza: '${query}'`} />
+          <h3 style={{ color: "#eee", marginBottom: 20 }}>
+            Wyszukiwanie dla frazy: '{query}'
+          </h3>
           <SearchResults />
         </>
       )}
-
-      <h1>{query}</h1>
     </>
   );
 };
