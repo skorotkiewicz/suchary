@@ -100,6 +100,10 @@ function App() {
             top15
           </Link>{" "}
           |
+          <Link className="footerLink" to="/smietnik">
+            śmietnik
+          </Link>{" "}
+          |
           <a
             className="footerLink"
             href={`https://github.com/skorotkiewicz/suchary`}

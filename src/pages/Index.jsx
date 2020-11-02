@@ -38,7 +38,7 @@ const Index = () => {
       `Strona: ${page}`,
       `${path2}/strona/${page}`
     );
-  }, [page]);
+  }, [page, route]);
 
   const Suchary = () => {
     return (
