@@ -22,8 +22,6 @@ const Index = () => {
   const path = route.url === "/smietnik" ? "/cat/1" : "";
   const path2 = route.url === "/smietnik" ? "/smietnik" : "";
 
-  // page/:page/cat/:category
-
   useEffect(() => {
     if (!jokes.isLoading && !uquery) {
       if (firstTime) {

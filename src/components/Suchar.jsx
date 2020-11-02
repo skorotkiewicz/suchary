@@ -23,26 +23,6 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
 
   const dispatch = useDispatch();
 
-  // const actionSuchar = useCallback(
-  //   (x, action) => {
-  //     if (action === "del") {
-  //       var url = `jokes/${joke._id}`;
-  //       var method = "DELETE";
-  //     }
-  //     if (action === "admin") {
-  //       url = `jokes/${joke._id}/category/1`;
-  //       method = "PATCH";
-  //     }
-  //     if (window.confirm("Czy napewno usunąć tego suchara?")) {
-  //       dispatch(fetchActions(auth, url, {}, method)); // API Request
-  //       const newList = jokes.filter((e) => e._id !== joke._id);
-  //       setJokes([...newList]);
-  //     }
-  //   },
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [joke._id]
-  // );
-
   useEffect(() => {
     if (actions.data.status === "success") {
       if (aInfo.a === "del") {

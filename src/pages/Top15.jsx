@@ -48,7 +48,6 @@ const Top15 = () => {
           <ReactLoading type={"bars"} color={"grey"} />
         </div>
       )}
-      {/* https://pbsapi.skorotkiewicz.vercel.app/api/the/users/top15 */}
     </div>
   );
 };
