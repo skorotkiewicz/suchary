@@ -24,20 +24,20 @@ const Search = () => {
           dispatch(fetchJokes(`${url}${pageId}`));
           dispatch(setPage(pageId));
           setFirstTime(false);
-          windowUrl(pageId);
+          windowUrl(pageId, query);
         } else {
           dispatch(fetchJokes(`${url}${page}`));
-          windowUrl(page);
+          windowUrl(page, query);
         }
       } else {
         dispatch(fetchJokes(`${url}${page}`));
-        windowUrl(page);
+        windowUrl(page, query);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, query]);
 
-  const windowUrl = (page) => {
+  const windowUrl = (page, query) => {
     window.history.replaceState(
       null,
       `Strona: ${page}`,
