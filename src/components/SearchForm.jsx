@@ -12,7 +12,7 @@ const SearchForm = () => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div className="searchForm">
       <form
         onSubmit={(e) => {
           e.preventDefault();

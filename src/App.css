@@ -173,19 +173,19 @@ hr {
 
 .auth > form > input::-webkit-input-placeholder,
 .auth > form > input::placeholder,
-.b > form > input::-webkit-input-placeholder,
-.b > form > input::placeholder {
+.searchForm > form > input::-webkit-input-placeholder,
+.searchForm > form > input::placeholder {
   color: #adadad;
   font-weight: bold;
 }
 .auth > form > input:-ms-input-placeholder,
-.b > form > input:-ms-input-placeholder {
+.searchForm > form > input:-ms-input-placeholder {
   color: #adadad;
   font-weight: bold;
 }
 
 .auth > form > input,
-.b > form > input {
+.searchForm > form > input {
   padding: 10px;
   border: 1px solid #1d1d1d;
   background-color: #4d535e;
