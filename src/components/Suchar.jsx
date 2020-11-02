@@ -98,14 +98,14 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
     }
   };
 
-  const like = async (joke) => {
-    if (!likes.includes(joke._id)) {
-      likes.push(joke._id);
+  const like = async (jokeid) => {
+    if (!likes.includes(jokeid)) {
+      likes.push(jokeid);
       dispatch(setLikes([...likes]));
       localStorage.setItem("likes", JSON.stringify(likes));
 
-      setAInfo({ id: joke._id, a: "like" });
-      dispatch(fetchActions({}, `joke/vote/like/${joke._id}`, {}, "POST")); // API Request
+      setAInfo({ id: jokeid, a: "like" });
+      dispatch(fetchActions({}, `joke/vote/like/${jokeid}`, {}, "POST")); // API Request
     }
   };
 
@@ -114,7 +114,7 @@ const Suchar = ({ joke, noLikes, rm, jokes, setJokes }) => {
       <button
         disabled={likes.includes(joke._id) ? true : false}
         className="likeBtn"
-        onClick={() => like(joke)}
+        onClick={() => like(joke._id)}
       >
         <span className="likeBtnContent">
           {likes.includes(joke._id) ? (
