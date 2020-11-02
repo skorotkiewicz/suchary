@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,14 +22,16 @@ import Settings from "./pages/Auth/Settings";
 import Profile from "./pages/Profile";
 import Help from "./pages/Help";
 import Top15 from "./pages/Top15";
+import Search from "./pages/Search";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setFavorites, setLikes, setAuth } from "./_actions";
+import { setFavorites, setLikes, setAuth, setPage } from "./_actions";
 
 function App() {
   const getFav = JSON.parse(localStorage.getItem("favorites") || 0);
   const getLike = JSON.parse(localStorage.getItem("likes") || 0);
   const getAuth = JSON.parse(localStorage.getItem("auth") || 0);
+  const [query, setQuery] = useState("");
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -68,6 +70,11 @@ function App() {
             <Route path="/smieszek/:login" exact component={Profile} />
             <Route path="/top15" exact component={Top15} />
             <Route
+              path="/szukaj/:query/strona/:pageId"
+              exact
+              component={Search}
+            />
+            <Route
               path="/smieszek/:login/strona/:pageId"
               exact
               component={Profile}
@@ -91,25 +98,46 @@ function App() {
           </Switch>
         </div>
         <div className="footer">
-          &copy; Suchary 2020 |{" "}
-          <Link className="footerLink" to="/pomoc">
-            pomoc
-          </Link>{" "}
-          |
-          <Link className="footerLink" to="/top15">
-            top15
-          </Link>{" "}
-          |
-          <Link className="footerLink" to="/smietnik">
-            śmietnik
-          </Link>{" "}
-          |
-          <a
-            className="footerLink"
-            href={`https://github.com/skorotkiewicz/suchary`}
-          >
-            opensource
-          </a>
+          <div className="footer-container">
+            <div className="a">
+              <Link className="footerLink" to="/pomoc">
+                pomoc
+              </Link>{" "}
+              |
+              <Link className="footerLink" to="/top15">
+                top15
+              </Link>{" "}
+              |
+              <Link className="footerLink" to="/smietnik">
+                śmietnik
+              </Link>{" "}
+              |
+              <a
+                className="footerLink"
+                href={`https://github.com/skorotkiewicz/suchary`}
+              >
+                opensource
+              </a>
+            </div>
+            <div className="b ctr">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  dispatch(setPage(1));
+                  setQuery(e.target.search.value);
+                }}
+              >
+                <input
+                  // onChange={(e) => setQuery(e.target.value)}
+                  type="text"
+                  placeholder="Wyszukaj suchara..."
+                  name="search"
+                />
+              </form>
+              {query && <Redirect to={`/szukaj/${query}/strona/1`} />}
+            </div>
+            <div className="c ctr">&copy; Suchary 2020</div>
+          </div>
         </div>
       </div>
     </Router>

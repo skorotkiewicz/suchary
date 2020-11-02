@@ -1,47 +1,44 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ReactLoading from "react-loading";
-import Suchar from "./../components/Suchar";
-import Seo from "./../components/Seo";
-import Paginator from "./../components/Paginator";
+import Suchar from "../components/Suchar";
+import Seo from "../components/Seo";
+import Paginator from "../components/Paginator";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPage, fetchJokes } from "./../_actions";
+import { fetchJokes, setPage } from "../_actions";
 
-const Index = () => {
+const Search = () => {
   const [firstTime, setFirstTime] = useState(true);
-  const { pageId } = useParams();
-  const route = useRouteMatch();
+  let { query, pageId } = useParams();
 
+  const dispatch = useDispatch();
   const page = useSelector((state) => state.page);
   const jokes = useSelector((state) => state.jokes);
-  const dispatch = useDispatch();
-
-  const path = route.url === "/smietnik" ? "/cat/1" : "";
-  const path2 = route.url === "/smietnik" ? "/smietnik" : "";
+  const url = `search/${query}/page/`;
 
   useEffect(() => {
     if (firstTime) {
       if (pageId > 1) {
-        dispatch(fetchJokes(`page/${pageId}` + path));
+        dispatch(fetchJokes(`${url}${pageId}`));
         dispatch(setPage(pageId));
         setFirstTime(false);
       } else {
-        dispatch(fetchJokes(`page/${page}` + path));
+        dispatch(fetchJokes(`${url}${page}`));
       }
     } else {
-      dispatch(fetchJokes(`page/${page}` + path));
+      dispatch(fetchJokes(`${url}${page}`));
     }
 
     window.history.replaceState(
       null,
       `Strona: ${page}`,
-      `${path2}/strona/${page}`
+      `/szukaj/${query}/strona/${page}`
     );
-  }, [page, route]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, query]);
 
-  const Suchary = () => {
+  const SearchResults = () => {
     return (
       <>
         <div className="suchary">
@@ -52,7 +49,7 @@ const Index = () => {
               key={key}
               jokes={jokes.jokes}
               setJokes={(x) => {
-                dispatch(fetchJokes(`page/${page}` + path, x));
+                dispatch(fetchJokes(`${url}${page}`, x));
               }}
             />
           ))}
@@ -71,12 +68,14 @@ const Index = () => {
         </div>
       ) : (
         <>
-          <Seo title={`Najnowsze suchary - Strona ${page}`} />
-          <Suchary />
+          <Seo title={`Wyszukiwanie suchara - fraza: '${query}'`} />
+          <SearchResults />
         </>
       )}
+
+      <h1>{query}</h1>
     </>
   );
 };
 
-export default Index;
+export default Search;

@@ -3,13 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import Suchar from "../components/Suchar";
 import Seo from "../components/Seo";
+import Paginator from "../components/Paginator";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchJokes, fetchUser } from "../_actions";
+import { fetchJokes, fetchUser, setPage } from "../_actions";
 
 const Profile = () => {
   let { login, pageId } = useParams();
-  const [page, setPage] = useState(1);
+  const page = useSelector((state) => state.page);
   const [firstTime, setFirstTime] = useState(true);
 
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Profile = () => {
   useEffect(() => {
     if (firstTime) {
       if (pageId > 1) {
-        setPage(pageId);
+        dispatch(setPage(pageId));
         setFirstTime(false);
         dispatch(fetchJokes(`user/${login}/${pageId}`));
       } else {
@@ -41,7 +42,7 @@ const Profile = () => {
   }, [page]);
 
   useEffect(() => {
-    setPage(1);
+    dispatch(setPage(1));
     dispatch(fetchUser(login));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
@@ -180,32 +181,6 @@ const Profile = () => {
     );
   };
 
-  const Paginator = () => {
-    return (
-      <div className="paginator">
-        <button
-          className="pageBtn"
-          onClick={() => {
-            setPage(jokes.prev);
-          }}
-          disabled={jokes.prev === null && true}
-        >
-          Poprzednia strona
-        </button>
-        <h4 style={{ color: "#eee" }}>Strona: {page}</h4>
-        <button
-          className="pageBtn"
-          onClick={() => {
-            setPage(jokes.next);
-          }}
-          disabled={jokes.next === null && true}
-        >
-          Następna strona
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div>
       <>
@@ -225,7 +200,11 @@ const Profile = () => {
                 {jokes.length !== 0 ? (
                   <>
                     <UserJokes />
-                    <Paginator />
+                    <Paginator
+                      page={page}
+                      next={jokes.next}
+                      prev={jokes.prev}
+                    />
                   </>
                 ) : (
                   <p style={{ color: "#eee" }}>

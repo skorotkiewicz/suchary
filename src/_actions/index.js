@@ -34,7 +34,6 @@ export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
   dispatch({ type: "FETCH_JOKES_REQUEST" });
 
   try {
-    // const data = await fetch(`http://localhost:3001/api/jokes/${url}`);
     const data = await fetch(
       `https://pbsapi.skorotkiewicz.vercel.app/api/jokes/${url}`
     );
@@ -48,8 +47,6 @@ export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({ type: "FETCH_JOKES_FAILURE", error });
   }
-
-  //const jokes = getState();
 };
 
 export const fetchUser = (login, top15 = false) => async (
