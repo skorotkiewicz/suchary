@@ -10,11 +10,23 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+// if (process.env.NODE_ENV === "development") {
+//   var store = createStore(
+//     allReducer,
+//     composeWithDevTools(applyMiddleware(thunk))
+//   );
+// } else {
+//   store = createStore(allReducer, applyMiddleware(thunk));
+// }
+
+import * as actions from "./_actions";
 if (process.env.NODE_ENV === "development") {
-  var store = createStore(
-    allReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+  const composeEnhancers = composeWithDevTools({
+    actions,
+    trace: true,
+    traceLimit: 25,
+  });
+  var store = createStore(allReducer, composeEnhancers(applyMiddleware(thunk)));
 } else {
   store = createStore(allReducer, applyMiddleware(thunk));
 }

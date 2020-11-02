@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,15 +25,15 @@ import Top15 from "./pages/Top15";
 import Search from "./pages/Search";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setFavorites, setLikes, setAuth, setPage } from "./_actions";
+import { setFavorites, setLikes, setAuth, setPage, setQuery } from "./_actions";
 
 function App() {
   const getFav = JSON.parse(localStorage.getItem("favorites") || 0);
   const getLike = JSON.parse(localStorage.getItem("likes") || 0);
   const getAuth = JSON.parse(localStorage.getItem("auth") || 0);
-  const [query, setQuery] = useState("");
 
   const auth = useSelector((state) => state.auth);
+  const query = useSelector((state) => state.query);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -124,7 +124,7 @@ function App() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   dispatch(setPage(1));
-                  setQuery(e.target.search.value);
+                  dispatch(setQuery(e.target.search.value));
                 }}
               >
                 <input
@@ -134,7 +134,11 @@ function App() {
                   name="search"
                 />
               </form>
-              {query && <Redirect to={`/szukaj/${query}/strona/1`} />}
+              {query && (
+                <>
+                  <Redirect to={`/szukaj/${query}/strona/1`} />
+                </>
+              )}
             </div>
             <div className="c ctr">&copy; Suchary 2020</div>
           </div>

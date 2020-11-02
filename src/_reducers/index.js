@@ -1,5 +1,14 @@
 import { combineReducers } from "redux";
-import { favorites, likes, auth, page, jokes, user, actions } from "./app";
+import {
+  favorites,
+  likes,
+  auth,
+  page,
+  jokes,
+  user,
+  actions,
+  query,
+} from "./app";
 
 const allReducer = combineReducers({
   favorites,
@@ -9,6 +18,7 @@ const allReducer = combineReducers({
   jokes,
   user,
   actions,
+  query,
 });
 
 export default allReducer;

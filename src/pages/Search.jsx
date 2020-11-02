@@ -10,7 +10,7 @@ import { fetchJokes, setPage } from "../_actions";
 
 const Search = () => {
   const [firstTime, setFirstTime] = useState(true);
-  let { query, pageId } = useParams();
+  const { query, pageId } = useParams();
 
   const dispatch = useDispatch();
   const page = useSelector((state) => state.page);
@@ -18,26 +18,32 @@ const Search = () => {
   const url = `search/${query}/page/`;
 
   useEffect(() => {
-    if (firstTime) {
-      if (pageId > 1) {
-        dispatch(fetchJokes(`${url}${pageId}`));
-        dispatch(setPage(pageId));
-        setFirstTime(false);
+    if (!jokes.isLoading) {
+      if (firstTime) {
+        if (pageId > 1) {
+          dispatch(fetchJokes(`${url}${pageId}`));
+          dispatch(setPage(pageId));
+          setFirstTime(false);
+          windowUrl(pageId);
+        } else {
+          dispatch(fetchJokes(`${url}${page}`));
+          windowUrl(page);
+        }
       } else {
         dispatch(fetchJokes(`${url}${page}`));
+        windowUrl(page);
       }
-    } else {
-      dispatch(fetchJokes(`${url}${page}`));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, query]);
 
+  const windowUrl = (page) => {
     window.history.replaceState(
       null,
       `Strona: ${page}`,
       `/szukaj/${query}/strona/${page}`
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, query]);
-
+  };
   const SearchResults = () => {
     return (
       <>

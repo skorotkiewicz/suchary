@@ -16,30 +16,38 @@ const Index = () => {
 
   const page = useSelector((state) => state.page);
   const jokes = useSelector((state) => state.jokes);
+  const uquery = useSelector((state) => state.query);
   const dispatch = useDispatch();
 
   const path = route.url === "/smietnik" ? "/cat/1" : "";
   const path2 = route.url === "/smietnik" ? "/smietnik" : "";
 
   useEffect(() => {
-    if (firstTime) {
-      if (pageId > 1) {
-        dispatch(fetchJokes(`page/${pageId}` + path));
-        dispatch(setPage(pageId));
-        setFirstTime(false);
+    if (!jokes.isLoading && !uquery) {
+      if (firstTime) {
+        if (pageId > 1) {
+          dispatch(fetchJokes(`page/${pageId}` + path));
+          dispatch(setPage(pageId));
+          setFirstTime(false);
+          windowUrl(pageId);
+        } else {
+          dispatch(fetchJokes(`page/${page}` + path));
+          windowUrl(page);
+        }
       } else {
         dispatch(fetchJokes(`page/${page}` + path));
+        windowUrl(page);
       }
-    } else {
-      dispatch(fetchJokes(`page/${page}` + path));
     }
+  }, [page, route]);
 
+  const windowUrl = (page) => {
     window.history.replaceState(
       null,
       `Strona: ${page}`,
       `${path2}/strona/${page}`
     );
-  }, [page, route]);
+  };
 
   const Suchary = () => {
     return (

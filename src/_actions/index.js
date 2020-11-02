@@ -26,6 +26,12 @@ export const setPage = (msg) => {
     payload: msg,
   };
 };
+export const setQuery = (msg) => {
+  return {
+    type: "setQuery",
+    payload: msg,
+  };
+};
 
 //
 export const fetchJokes = (url, x = null) => async (dispatch, getState) => {

@@ -32,6 +32,15 @@ export const page = (state = 1, action) => {
   }
 };
 //
+export const query = (state = "", action) => {
+  switch (action.type) {
+    case "setQuery":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+//
 export const jokes = (
   state = { jokes: [], isLoading: false, error: null },
   action
