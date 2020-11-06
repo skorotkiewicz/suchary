@@ -6,10 +6,8 @@ const Chat = ({ auth, socket }) => {
   const [chatlog, setChatlog] = useState([]);
   const [log, setLog] = useState({ message: "ładuje..." });
   const [feedback, setFeedback] = useState("");
-  //   const [typing, setTyping] = useState(false);
-  //   var timer = null;
-
   const divRef = useRef(null);
+
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   });
@@ -19,40 +17,12 @@ const Chat = ({ auth, socket }) => {
   }, []);
 
   const fetchChatMsg = async () => {
-    const data = await fetch(`http://localhost:3000/api/chat/log/messages`);
-    // const data = await fetch(
-    //   `https://pbsapi.skorotkiewicz.vercel.app/api/chat/log/messages`
-    // );
+    const data = await fetch(
+      `https://pbsapi.skorotkiewicz.vercel.app/api/chat/log/messages`
+    );
     const msg = await data.json();
-    // console.log(msg.data);
     setChatlog(msg.data);
   };
-
-  //   useEffect(() => {
-  //     window.addEventListener("keydown", downHandler);
-  //     window.addEventListener("keyup", upHandler);
-  //     return () => {
-  //       window.removeEventListener("keydown", downHandler);
-  //       window.removeEventListener("keyup", upHandler);
-  //     };
-  //   }, []);
-
-  //   const downHandler = () => {
-  //     if (typing === false) {
-  //       setTyping(true);
-  //       socket.emit("typing", { username: auth.login });
-  //     }
-  //     console.log(typing);
-  //   };
-  //   const upHandler = () => {
-  //     if (timer) {
-  //       clearTimeout(timer);
-  //     }
-  //     timer = setTimeout(function () {
-  //       socket.emit("stopTyping", { username: auth.login });
-  //       setTyping(false);
-  //     }, 1000);
-  //   };
 
   useEffect(() => {
     setChatlog([...chatlog, log]);
