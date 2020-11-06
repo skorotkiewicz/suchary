@@ -24,9 +24,9 @@ const Navigator = () => {
       ></Link>
 
       <ul className="nav-links">
-        <li style={{ color: "#fff" }}>
+        {/* <li style={{ color: "#fff" }}>
           [ <Link to="/czat">czat</Link> ]
-        </li>
+        </li> */}
 
         <li>
           <Link
