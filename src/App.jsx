@@ -49,7 +49,7 @@ function App() {
       query: `token=${auth.auth}`,
       path: "/socket.io",
       transports: ["websocket"],
-      secure: true,
+      secure: false,
     });
     socket.on("connect", function () {});
   }
