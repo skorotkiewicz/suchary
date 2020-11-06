@@ -88,7 +88,11 @@ function App() {
             <Route path="/smieszek/:login" exact component={Profile} />
             <Route path="/top15" exact component={Top15} />
             <Route path="/czat" exact>
-              {auth && <Chat auth={auth} socket={socket} />}
+              {auth ? (
+                <Chat auth={auth} socket={socket} />
+              ) : (
+                <Redirect to="/auth" />
+              )}
             </Route>
             <Route
               path="/szukaj/:query/strona/:pageId"
