@@ -6,6 +6,7 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
+import io from "socket.io-client";
 import "./App.css";
 
 import Navigator from "./pages/Navigator.jsx";
@@ -23,6 +24,7 @@ import Profile from "./pages/Profile";
 import Help from "./pages/Help";
 import Top15 from "./pages/Top15";
 import Search from "./pages/Search";
+import Chat from "./components/Chat";
 import SearchForm from "./components/SearchForm";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -41,6 +43,16 @@ function App() {
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  if (auth) {
+    var socket = io("ws://51.116.191.49/", {
+      query: `token=${auth.auth}`,
+      path: "/socket.io",
+      transports: ["websocket"],
+      secure: true,
+    });
+    socket.on("connect", function () {});
+  }
 
   useEffect(() => {
     if (getFav !== 0) {
@@ -75,6 +87,13 @@ function App() {
             <Route path="/suchar/:id" exact component={SucharPage} />
             <Route path="/smieszek/:login" exact component={Profile} />
             <Route path="/top15" exact component={Top15} />
+            <Route path="/czat" exact>
+              {auth ? (
+                <Chat auth={auth} socket={socket} />
+              ) : (
+                <Redirect to="/auth" />
+              )}
+            </Route>
             <Route
               path="/szukaj/:query/strona/:pageId"
               exact
@@ -87,17 +106,16 @@ function App() {
             />
 
             <Route path="/auth" exact>
-              <Auth />
-              {auth && <Redirect to="/dodaj" />}
+              {auth ? <Redirect to="/dodaj" /> : <Auth />}
             </Route>
             <Route path="/wyloguj" exact>
               {auth && <Logout />}
             </Route>
             <Route path="/dodaj" exact>
-              {auth && <AddSuchar auth={auth} />}
+              {auth ? <AddSuchar auth={auth} /> : <Redirect to="/auth" />}
             </Route>
             <Route path="/ustawienia/zmianahasla" exact>
-              {auth && <Settings auth={auth} />}
+              {auth ? <Settings auth={auth} /> : <Redirect to="/auth" />}
             </Route>
 
             <Route path="*" exact component={Error404} />
