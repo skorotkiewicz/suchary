@@ -25,6 +25,12 @@ const Navigator = () => {
 
       <ul className="nav-links">
         <li>
+          <Link style={{ color: "#fff" }} to="/czat">
+            czat (beta)
+          </Link>
+        </li>
+
+        <li>
           <Link
             onClick={() => {
               dispatch(fetchJokes(`page/1/cat/0`));

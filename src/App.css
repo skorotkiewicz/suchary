@@ -173,19 +173,23 @@ hr {
 
 .auth > form > input::-webkit-input-placeholder,
 .auth > form > input::placeholder,
+.chatinput > form > input::placeholder,
 .searchForm > form > input::-webkit-input-placeholder,
-.searchForm > form > input::placeholder {
+.searchForm > form > input::placeholder,
+.chatinput > form > input::placeholder {
   color: #adadad;
   font-weight: bold;
 }
 .auth > form > input:-ms-input-placeholder,
-.searchForm > form > input:-ms-input-placeholder {
+.searchForm > form > input:-ms-input-placeholder,
+.chatinput > form > input:-ms-input-placeholder {
   color: #adadad;
   font-weight: bold;
 }
 
 .auth > form > input,
-.searchForm > form > input {
+.searchForm > form > input,
+.chatinput > form > input {
   padding: 10px;
   border: 1px solid #1d1d1d;
   background-color: #4d535e;
@@ -306,4 +310,52 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Chat */
+
+.chatlog {
+  width: 1fr;
+  height: 500px;
+  overflow: auto;
+  padding: 10px;
+  white-space: pre-wrap;
+  border: 1px solid #1d1d1d;
+  background-color: #393e46;
+  color: #eee;
+}
+
+.chatinput > form > input {
+  margin: 0px !important;
+  margin-top: 5px !important;
+  width: 100%;
+  height: 50px;
+}
+
+.chat-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.8fr 0.2fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "chatlog"
+    "chatinput";
+}
+
+.chatlog {
+  grid-area: chatlog;
+}
+.chatinput {
+  grid-area: chatinput;
+}
+.chatinfo {
+  color: #aaa;
+  text-decoration: none;
+  /* font-weight: bold; */
+  font-size: 14px;
+}
+.feedback {
+  color: #eee;
+  border: 1px solid #ff0000;
+  padding: 10px;
 }
