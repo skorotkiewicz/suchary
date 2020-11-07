@@ -143,6 +143,10 @@ function App() {
                 śmietnik
               </Link>{" "}
               |
+              <Link className="footerLink" to="/czat">
+                czat
+              </Link>{" "}
+              |
               <a
                 className="footerLink"
                 href={`https://github.com/skorotkiewicz/suchary`}
