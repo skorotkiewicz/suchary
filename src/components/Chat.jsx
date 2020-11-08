@@ -42,9 +42,11 @@ const Chat = ({ auth, socket }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const msgTime = () => {
+  const msgTime = (x = null) => {
+    if (x) return x;
+
     var date = new Date();
-    var hours = date.getHours();
+    var hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
     var minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     return hours + ":" + minutes + " | ";
   };
@@ -71,7 +73,7 @@ const Chat = ({ auth, socket }) => {
         <div className="chatlog">
           {chatlog.map((msg, key) => (
             <div key={key}>
-              <span className="chatinfo">{msgTime()}</span>
+              <span className="chatinfo">{msgTime(msg.time)}</span>
               <span>
                 <Link className="chatinfo" to={`/smieszek/${msg.username}`}>
                   {msg.username}:
