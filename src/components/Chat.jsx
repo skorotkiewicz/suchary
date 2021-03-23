@@ -18,7 +18,7 @@ const Chat = ({ auth, socket }) => {
 
   const fetchChatMsg = async () => {
     const data = await fetch(
-      `https://pbsapi.skorotkiewicz.vercel.app/api/chat/log/messages`
+      `https://pbsapi-skorotkiewicz.vercel.app/api/chat/log/messages`
     );
     const msg = await data.json();
     setChatlog(msg.data);

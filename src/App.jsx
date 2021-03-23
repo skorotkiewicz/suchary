@@ -157,7 +157,7 @@ function App() {
             <div className="b ctr">
               <SearchForm />
             </div>
-            <div className="c ctr">&copy; Suchary 2020</div>
+            <div className="c ctr">&copy; Suchary 2021</div>
           </div>
         </div>
       </div>

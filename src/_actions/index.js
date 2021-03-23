@@ -41,7 +41,7 @@ export const fetchJokes = (url, x = null) => async (dispatch, getState) => {
 
   try {
     const data = await fetch(
-      `https://pbsapi.skorotkiewicz.vercel.app/api/jokes/${url}`
+      `https://pbsapi-skorotkiewicz.vercel.app/api/jokes/${url}`
     );
     const jokes = await data.json();
 
@@ -70,7 +70,7 @@ export const fetchUser = (login, top15 = false) => async (
       url = `users/${login}`;
     }
     const data = await fetch(
-      `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`
+      `https://pbsapi-skorotkiewicz.vercel.app/api/${url}`
     );
     const user = await data.json();
 
@@ -90,7 +90,7 @@ export const fetchActions = (
 
   try {
     const data = await fetch(
-      `https://pbsapi.skorotkiewicz.vercel.app/api/${url}`,
+      `https://pbsapi-skorotkiewicz.vercel.app/api/${url}`,
       {
         method: method,
         headers: {
